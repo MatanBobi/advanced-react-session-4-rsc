@@ -2,12 +2,16 @@
 import { caughtPokemons } from "@/app/pokemon/page";
 import { revalidatePath } from "next/cache";
 
-export default async function Pokemon({ params: { pokemonId } }) {
+export default async function Pokemon({
+  params: { pokemonId },
+}: {
+  params: { pokemonId: string };
+}) {
   const data = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
   ).then((res) => res.json());
 
-  async function markCaught(e) {
+  async function markCaught(e: any) {
     "use server";
 
     caughtPokemons.push(data.name);

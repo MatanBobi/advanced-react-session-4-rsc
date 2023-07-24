@@ -30,7 +30,7 @@ export function Heading() {
               {label}
             </Link>
           ) : (
-            <span>{label}</span>
+            <span key={href}>{label}</span>
           )
         )}
       </nav>
