@@ -1,17 +1,9 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { PokemonData } from "./types";
 import Link from "next/link";
 
-export function PokemonItem({ name }: { name: string }) {
-  const [pokemonData, setPokemonData] = useState<PokemonData | null>(null);
-
-  useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setPokemonData(data);
-      });
-  }, [name]);
+export default async function PokemonItem({ name }: { name: string }) {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+  const pokemonData: PokemonData = await response.json();
 
   if (!pokemonData) {
     return null;

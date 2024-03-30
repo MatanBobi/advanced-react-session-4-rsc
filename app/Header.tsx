@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 const SPEED = 0.01;

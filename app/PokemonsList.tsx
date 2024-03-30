@@ -1,28 +1,12 @@
-import {
-  Dispatch,
-  memo,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { memo } from "react";
 import { Pokemon } from "./types";
-import { PokemonItem } from "./PokemonItem";
+import PokemonItem from "./PokemonItem";
 
-const PokemonsListInner = () => {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-
-  useEffect(() => {
-    const getPokemons = () => {
-      fetch("https://pokeapi.co/api/v2/pokemon?limit=50")
-        .then((response) => response.json())
-        .then((data) => {
-          setPokemons(data.results);
-        });
-    };
-
-    getPokemons();
-  }, []);
+const PokemonsListInner = async () => {
+  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=50");
+  const pokemons: Pokemon[] = await response
+    .json()
+    .then((data) => data.results);
 
   return (
     <main className="grid gap-4 grid-cols-3">
@@ -33,4 +17,4 @@ const PokemonsListInner = () => {
   );
 };
 
-export const PokemonsList = memo(PokemonsListInner);
+export default memo(PokemonsListInner);
